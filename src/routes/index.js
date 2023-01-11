@@ -1,4 +1,4 @@
-//
+// Layouts
 import { HeaderOnly } from '~/components/Layout'
 
 import Home from '~/pages/Home'
