@@ -35,3 +35,30 @@
         background-color: var(--hover-color);
     }
 }
+
+// Header
+.header {
+    position: relative;
+    height: 50px;
+    margin-top: -8px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.back-btn {
+    width: 40px;
+    height: 100%;
+    font-size: 1.6rem;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.header-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.7rem;
+    font-weight: 600;
+    user-select: none;
+}
