@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import HeadlessTippy from '@tippyjs/react/headless'
 import 'tippy.js/dist/tippy.css'
 import { SearchIcon } from '~/components/Icons'
@@ -17,14 +17,28 @@ function Search() {
     const [searchValue, setSearchValue] = useState('')
     const [searchResult, setSearchResult] = useState([])
     const [showResult, setShowResult] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     const inputRef = useRef()
 
     useEffect(() => {
-        setTimeout(() => {
-            setSearchResult([1, 2, 3, 4])
-        }, 0)
-    }, [])
+        if (!searchValue.trim()) {
+            setSearchResult([])
+            return
+        }
+
+        setLoading(true)
+
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+            .then((res) => res.json())
+            .then((res) => {
+                setSearchResult(res.data)
+                setLoading(false)
+            })
+            .catch(() => {
+                setLoading(false)
+            })
+    }, [searchValue])
 
     const handleClear = () => {
         setSearchValue('')
@@ -38,15 +52,16 @@ function Search() {
 
     return (
         <HeadlessTippy
+            interactive
             visible={showResult && searchResult.length > 0}
             render={(attrs) => (
                 <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                     <PopperWrapper>
                         <h4 className={cx('search-title')}>Accounts</h4>
 
-                        <AccountItem />
-                        <AccountItem />
-                        <AccountItem />
+                        {searchResult.map((result) => (
+                            <AccountItem key={result.id} data={result} />
+                        ))}
                     </PopperWrapper>
                 </div>
             )}
@@ -64,13 +79,13 @@ function Search() {
                 />
 
                 {/* có nội dung thì mới hiện nút xóa */}
-                {!!searchValue && (
+                {!!searchValue && !loading && (
                     <button className={cx('clear')} onClick={handleClear}>
                         <FontAwesomeIcon icon={faCircleXmark} />
                     </button>
                 )}
 
-                {/* <FontAwesomeIcon className={cx('loading')} icon={faSpinner} /> */}
+                {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
 
                 <button className={cx('search-btn')}>
                     <SearchIcon />
