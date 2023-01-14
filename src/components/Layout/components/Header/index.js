@@ -1,17 +1,13 @@
-import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faCircleQuestion,
-    faCircleXmark,
     faCoins,
     faEarthAsia,
     faEllipsisVertical,
     faGear,
     faKeyboard,
-    faMagnifyingGlass,
     faPlus,
     faSignOut,
-    faSpinner,
     faUser,
 } from '@fortawesome/free-solid-svg-icons'
 import Tippy from '@tippyjs/react'
@@ -19,12 +15,11 @@ import 'tippy.js/dist/tippy.css'
 import classNames from 'classnames/bind'
 
 import styles from './Header.module.scss'
-import { Wrapper as PopperWrapper } from '~/components/Popper'
-import AccountItem from '~/components/AccountItem'
 import Button from '~/components/Button'
 import Menu from '~/components/Popper/Menu'
 import { MessegeIcon, InboxIcon } from '~/components/Icons'
 import Image from '~/components/Image'
+import Search from '../Search'
 
 const cx = classNames.bind(styles)
 
@@ -60,13 +55,7 @@ const MENU_ITEMS = [
 ]
 
 function Header() {
-    const [searchResult, setSearchResult] = useState(0)
-
     const currentUser = true
-
-    setTimeout(() => {
-        setSearchResult(0)
-    }, 0)
 
     // Handle logic
     const handleMenuChange = (menuItem) => {
@@ -112,33 +101,8 @@ function Header() {
                     alt=""
                 />
 
-                <Tippy
-                    visible={searchResult > 0}
-                    render={(attrs) => (
-                        <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                            <PopperWrapper>
-                                <h4 className={cx('search-title')}>Accounts</h4>
-
-                                <AccountItem />
-                                <AccountItem />
-                                <AccountItem />
-                            </PopperWrapper>
-                        </div>
-                    )}
-                >
-                    <div className={cx('search')}>
-                        <input placeholder="Search accounts and videos" spellCheck={false} />
-
-                        <button className={cx('clear')}>
-                            <FontAwesomeIcon icon={faCircleXmark} />
-                        </button>
-                        <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />
-
-                        <button className={cx('search-btn')}>
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </button>
-                    </div>
-                </Tippy>
+                {/* Search */}
+                <Search />
 
                 <div className={cx('actions')}>
                     {currentUser ? (
@@ -174,7 +138,7 @@ function Header() {
                             // nếu có user login sẽ hiển thị avatar và dùng lại menu cũ
                             <Image
                                 className={cx('user-avatar')}
-                                src="https://top10az.com/wp-content/uploads/2021/07/Uzumaki-Naruto-1024x1024.jpg"
+                                src="https://scontent.fdad1-2.fna.fbcdn.net/v/t39.30808-6/314469309_803074607642457_2190012754834634057_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=nFhwF3wiu5AAX_Gndjo&_nc_ht=scontent.fdad1-2.fna&oh=00_AfDcAOaF4SXTAGbCGwqsr7jDxJ16gwOZjOFg9M9i7iw0Qw&oe=63C7CBBB"
                                 alt="Vo Khai"
                             />
                         ) : (
