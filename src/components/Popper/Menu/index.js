@@ -12,7 +12,7 @@ const cx = classNames.bind(styles)
 
 const defaultFn = () => {}
 
-function Menu({ children, items = [], onChange = defaultFn }) {
+function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn }) {
     const [history, setHistory] = useState([{ data: items }])
     const current = history[history.length - 1]
 
@@ -49,6 +49,8 @@ function Menu({ children, items = [], onChange = defaultFn }) {
             // set lại vị trí ngang dọc sao cho vừa mắt
             offset={[12, 10]}
             interactive
+            // click vào avatar k ẩn popper
+            hideOnClick={hideOnClick}
             placement="bottom-end"
             render={(attrs) => (
                 <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
