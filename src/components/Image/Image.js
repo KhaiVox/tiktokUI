@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 // dùng forwardRef để lấy ref phục vụ cho hover ra popper
 import { useState, forwardRef } from 'react'
 import images from '~/assets/images'
@@ -22,5 +24,12 @@ const Image = forwardRef(({ src, alt, className, fallback: customFallback = imag
         />
     )
 })
+
+Image.propTypes = {
+    src: PropTypes.string,
+    alt: PropTypes.string,
+    className: PropTypes.string,
+    fallback: PropTypes.string,
+}
 
 export default Image
