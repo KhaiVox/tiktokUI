@@ -20,6 +20,8 @@
     input {
         flex: 1;
         height: 100%;
+        // khoảng cách giữ kết quả search vs nút close
+        padding-right: 45px;
         color: var(--black);
         font-size: 1.6rem;
         caret-color: var(--primary);
