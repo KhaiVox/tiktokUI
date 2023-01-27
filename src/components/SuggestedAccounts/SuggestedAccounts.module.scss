@@ -3,14 +3,20 @@
 }
 
 .label {
+    margin-top: 8px;
     padding: 8px;
     font-size: 1.4rem;
     font-weight: 600;
 }
 
+.preview-popper {
+    padding: 0;
+}
+
 .account-item {
     display: flex;
     padding: 8px;
+    cursor: pointer;
 }
 
 .avatar {
